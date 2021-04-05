@@ -12,4 +12,20 @@ class Vector2 {
         this.y = y
     }
 
+    negate() {
+        this.x = -this.x
+        this.y = -this.y
+    }
+
+    /**
+     * @param {Vector2} vector 
+     */
+     add(vector) {
+        this.x += vector.x
+        this.y += vector.y
+    }
+
+    clone() {
+        return new Vector2(this.x, this.y)
+    }
 }
