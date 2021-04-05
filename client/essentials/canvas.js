@@ -12,7 +12,7 @@ class Canvas {
     constructor(canvasNode, dimensions) {
         this.node = canvasNode
         this.context = canvasNode.getContext('2d')
-        this.content = new RootRenderObject()
+        this.content = new RootRenderObject(this)
         this.lastFrameTime = NaN
         this.startTime = NaN
         this.dimensions = dimensions
