@@ -29,6 +29,15 @@ class Canvas {
         this.content.appendChild(obj)
     }
 
+    /**
+     * Recursivly finds the RenderObjects matching the given predicate.
+     * @param {(object:RenderObject) => Boolean} matcher 
+     * @returns {Array<RenderObject}
+     */
+    findComponent(matcher) {
+        return this.content.findComponent(matcher)
+    }
+
     run() {
         requestAnimationFrame(this.onAnimationFrame.bind(this))
     }

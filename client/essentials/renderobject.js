@@ -36,6 +36,19 @@ class RenderObject {
         this.children.push(renderobject)
         renderobject.parent = this
     }
+    
+    /**
+     * Recursivly finds the RenderObjects matching the given predicate.
+     * @param {(object:RenderObject) => Boolean} matcher 
+     * @returns {Array<RenderObject}
+     */
+    findComponent(matcher) {
+        let matches = matcher(this) ? [this] : []
+        this.children.forEach(c => {
+            matches = matches.concat(c.findComponent(matcher))
+        })
+        return matches
+    }
 
     /**
      * 
