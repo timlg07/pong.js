@@ -3,13 +3,29 @@
  */
 class RenderObject {
 
-    constructor() {
-        this.isActive = true
-        this.isVisible = true
-        this.children = []
-        this.parent = null
-        this.position = new Position()
-    }
+    /** @type {boolean} */
+    isActive = true
+
+    /** @type {boolean} */
+    isVisible = true
+
+    /** @type {Array<RenderObject>} */
+    children = []
+
+     /** @type {RenderObject | Canvas} */
+    parent = null
+
+    /** @type {Position} */
+    position = new Position()
+
+    /** @type {RectangularDimensions} */
+    convexRect = new RectangularDimensions()
+
+    /** 
+     * Is computed before every render.
+     * @type {Position}
+     */
+    absolutePosition = null
 
     /**
      * Appends a renderObject as child of this object. Updates the childs parent.
@@ -32,17 +48,25 @@ class RenderObject {
     }
 
     /**
-     * 
-     * @param {Position} offset
+     * @param {RectangularDimensions} renderDimensions The dimensions of the visible area, starting at (0, 0)
+     * @param {Position} offset The offset of the parent objects to calculate the absolute position
      * @returns {Array<RenderObject>} This element and all its children
      */
-    prepareRender(offset = new Position()) {
-        this.relativePosition = Position.relative(this.position, offset)
-        let flatChildList = [this]
+    prepareRender(renderDimensions, offset = new Position()) {
+        this.absolutePosition = Position.relative(this.position, offset)
+        let flatChildList = this.isOnScreen(renderDimensions) ? [this] : []
         for (let c of this.children.filter(obj => obj.isVisible)) {
-            flatChildList = c.prepareRender(this.relativePosition).concat(flatChildList)
+            flatChildList = c.prepareRender(renderDimensions, this.absolutePosition).concat(flatChildList)
         }
         return flatChildList
+    }
+
+    /**
+     * @param {RectangularDimensions} renderDimensions The dimensions of the visible area, starting at (0, 0)
+     * @returns {Boolean} Whether this renderObject is in the visible area or not
+     */
+    isOnScreen(renderDimensions) {
+        return RectangularDimensions.intersect(this.absolutePosition, this.convexRect, new Position(), renderDimensions)
     }
 
     /**

@@ -7,15 +7,17 @@ class Canvas {
      * Creates a new Canvas managing the given DOM Node.
      * 
      * @param {HTMLCanvasElement} canvasNode 
+     * @param {RectangularDimensions} dimensions
      */
-    constructor(canvasNode, width, height) {
+    constructor(canvasNode, dimensions) {
         this.node = canvasNode
         this.context = canvasNode.getContext('2d')
         this.content = new RootRenderObject()
         this.lastFrameTime = NaN
         this.startTime = NaN
-        this.node.width = width
-        this.node.height = height
+        this.dimensions = dimensions
+        this.node.width = dimensions.width
+        this.node.height = dimensions.height
     }
 
     /**
@@ -53,7 +55,7 @@ class Canvas {
         this.content.update(deltaTime)
         this.context.clearRect(0, 0, this.node.width, this.node.height)
         
-        this.content.prepareRender()
+        this.content.prepareRender(this.dimensions)
             .sort((a, b) => a.position.z - b.position.z)
             .forEach(obj => obj.render(this.context))
     }
