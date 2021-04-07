@@ -64,8 +64,20 @@ class Canvas {
         this.content.update(deltaTime)
         this.context.clearRect(0, 0, this.node.width, this.node.height)
         
-        this.content.prepareRender(this.dimensions)
-            .sort((a, b) => a.position.z - b.position.z)
-            .forEach(obj => obj.render(this.context))
+        const objects = this.content.prepareRender(this.dimensions)
+        const collider = objects.filter(o => o.isCollider === true)
+        const moving = collider.filter(o => o.isStatic === false)
+
+        moving.forEach(m => collider.forEach(c => {
+            if (m !== c && m.isColliding(c)) {
+                m.onCollision(c)
+
+                // If c is not an element of moving, this collision has to be reported to c here.
+                if (c.isStatic === true) c.onCollision(m)
+            }
+        }))
+
+        objects.sort((a, b) => a.position.z - b.position.z)
+               .forEach(obj => obj.render(this.context))
     }
 }

@@ -8,6 +8,16 @@ class RenderObject {
 
     /** @type {boolean} */
     isVisible = true
+    
+    /**
+     * By default every render object is static meaning it can not be moved by physics 
+     * and collisions of it with other static objects are not possible.
+     * @type {Boolean}
+     */
+    isStatic = true
+
+    /** @type {Boolean} */
+    isCollider = false
 
     /** @type {Array<RenderObject>} */
     children = []
@@ -63,7 +73,7 @@ class RenderObject {
     /**
      * @param {RectangularDimensions} renderDimensions The dimensions of the visible area, starting at (0, 0)
      * @param {Position} offset The offset of the parent objects to calculate the absolute position
-     * @returns {Array<RenderObject>} This element and all its children
+     * @returns {Array<RenderObject>} This element and all its visible children that are on the screen
      */
     prepareRender(renderDimensions, offset = new Position()) {
         this.absolutePosition = Position.relative(this.position, offset)
@@ -80,6 +90,23 @@ class RenderObject {
      */
     isOnScreen(renderDimensions) {
         return RectangularDimensions.intersect(this.absolutePosition, this.convexRect, new Position(), renderDimensions)
+    }
+
+    /**
+     * 
+     * @param {RenderObject} other 
+     * @returns {Boolean} Whether this object collides with the other object or not
+     */
+    isColliding(other) {
+        return RectangularDimensions.intersect(this.absolutePosition, this.convexRect, other.absolutePosition, other.convexRect)
+    }
+
+    /**
+     * 
+     * @param {RenderObject} other 
+     */
+    onCollision(other) {
+
     }
 
     /**

@@ -10,6 +10,13 @@ class RectangularDimensions {
     }
 
     /**
+     * @type {Position} 
+     */
+    get mid() {
+        return new Position(this.width / 2, this.height / 2)
+    }
+
+    /**
      * 
      * @param {Position} pos1 
      * @param {RectangularDimensions} dim1 

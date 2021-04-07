@@ -1,5 +1,7 @@
 class FPSVisualizer extends RenderObject {
 
+    position = new Position(0, 15, Number.POSITIVE_INFINITY)
+
     /**
      * 
      * @param {Number} deltaTime 
@@ -15,6 +17,6 @@ class FPSVisualizer extends RenderObject {
     render(context) {
         context.fillStyle = "#ff0000ff"
         context.font = "15px Arial"
-        context.fillText(this.fps.toFixed(0), 5, 20)
+        context.fillText(this.fps.toFixed(0), this.absolutePosition.x, this.absolutePosition.y)
     }
 }

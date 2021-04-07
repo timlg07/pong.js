@@ -22,7 +22,8 @@ class Camera extends RenderObject {
     performScreenshake(strengthAndDirection, duration = 100) {
         this.screenshake = {
             vector: strengthAndDirection.clone(),
-            remainingTime: duration
+            remainingTime: duration,
+            calls: 0
         }
     }
 
@@ -37,7 +38,8 @@ class Camera extends RenderObject {
             this.screenshake.vector.negate()
             this.move(this.screenshake.vector)
             this.screenshake.remainingTime -= deltaTime
-            if (this.screenshake.remainingTime <= 0) {
+            this.screenshake.calls++
+            if (this.screenshake.remainingTime <= 0 && this.screenshake.calls % 2 == 0) {
                 this.screenshake = false
             }
         }
