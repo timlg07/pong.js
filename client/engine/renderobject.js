@@ -105,15 +105,27 @@ class RenderObject {
      * 
      * @param {RenderObject} other 
      */
-    onCollision(other) {
-
-    }
+    onCollision(other) {}
 
     /**
      * 
      * @param {CanvasRenderingContext2D} context 
      */
-    render(context) {
+    render(context) {}
 
+    /**
+     * 
+     * @param {KeyboardEvent} event 
+     */
+    onKeyDown(event) {
+        this.children.forEach(c => c.onKeyDown(event))
+    }
+
+    /**
+     * 
+     * @param {KeyboardEvent} event 
+     */
+    onKeyUp(event) {
+        this.children.forEach(c => c.onKeyUp(event))
     }
 }

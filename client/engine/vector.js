@@ -41,10 +41,17 @@ class Vector2 {
     /**
      * @param {Vector2} vector 
      */
-     add(vector) {
+    add(vector) {
         this.x += vector.x
         this.y += vector.y
         return this
+    }
+
+    /**
+     * @param {Vector2} vector 
+     */
+    subtract(vector) {
+        return this.add(vector.clone().negate())
     }
 
     /**
