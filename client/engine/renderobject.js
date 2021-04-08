@@ -128,4 +128,8 @@ class RenderObject {
     onKeyUp(event) {
         this.children.forEach(c => c.onKeyUp(event))
     }
+
+    onWebsocketMessage(data) {
+        this.children.forEach(c => c.onWebsocketMessage(data))
+    }
 }
