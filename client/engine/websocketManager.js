@@ -14,6 +14,10 @@ class WebsocketManager extends EventEmitter {
             console.log(event.data)
             const data = JSON.parse(event.data)
             this.onWebsocketMessage(data)
+            
+            if (data.type === 'login') {
+                this.user = data.user
+            }
         }
     
         this.socket.onclose = event => {
@@ -30,7 +34,11 @@ class WebsocketManager extends EventEmitter {
     }
 
     send(data) {
-        this.socket.send(JSON.stringify(data))
+        if (this.socket.readyState === WebSocket.OPEN) {
+            this.socket.send(JSON.stringify(data))
+        } else {
+            console.log('WS [abort send] Connection is no longer open')
+        }
     }
 
     /**

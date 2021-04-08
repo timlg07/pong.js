@@ -2,8 +2,8 @@ const http = require('http')
 const ws = require('ws')
 
 const wss = new ws.Server({ noServer: true })
-const players = []
 const maxPlayers = 2
+let players = []
 
 function accept(req, res) {
     const isWebsocket = req.headers.upgrade.toLowerCase() === 'websocket'
@@ -43,6 +43,13 @@ function onConnect(wsc, ireq) {
                 wss.clients.forEach(c => {
                     if (c !== wsc) c.send(message)
                 })
+
+                if (data.type === 'finished') {
+                    players = []
+                    wss.clients.forEach(c => {
+                        if (c.readyState === ws.OPEN) c.close()
+                    })
+                }
             }
         }
     })
