@@ -25,6 +25,7 @@ class Position {
         this.x += vector.x
         this.y += vector.y
         this.z += z
+        return this
     }
 
     /**

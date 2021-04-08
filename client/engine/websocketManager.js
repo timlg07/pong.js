@@ -11,6 +11,7 @@ class WebsocketManager extends EventEmitter {
         }
     
         this.socket.onmessage = event => {
+            console.log(event.data)
             const data = JSON.parse(event.data)
             this.onWebsocketMessage(data)
         }

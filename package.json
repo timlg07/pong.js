@@ -1,0 +1,26 @@
+{
+  "name": "pong",
+  "version": "1.0.0",
+  "description": "pong",
+  "main": "server\\main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timlg07/pong.js.git"
+  },
+  "keywords": [
+    "pong"
+  ],
+  "author": "Tim L. Greller",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/timlg07/pong.js/issues"
+  },
+  "homepage": "https://github.com/timlg07/pong.js#readme",
+  "dependencies": {
+    "http": "0.0.1-security",
+    "ws": "^7.4.4"
+  }
+}
