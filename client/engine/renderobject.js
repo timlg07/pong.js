@@ -40,11 +40,11 @@ class RenderObject {
     /**
      * Appends a renderObject as child of this object. Updates the childs parent.
      * 
-     * @param {RenderObject} renderobject 
+     * @param {RenderObject} renderobjects 
      */
-    appendChild(renderobject) {
-        this.children.push(renderobject)
-        renderobject.parent = this
+    appendChild(...renderobjects) {
+        this.children.push(...renderobjects)
+        renderobjects.forEach(o => {o.parent = this})
     }
     
     /**
