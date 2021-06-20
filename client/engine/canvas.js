@@ -32,7 +32,7 @@ class Canvas {
     /**
      * Recursivly finds the RenderObjects matching the given predicate.
      * @param {(object:RenderObject) => Boolean} matcher 
-     * @returns {Array<RenderObject}
+     * @returns {Array<RenderObject>}
      */
     findComponent(matcher) {
         return this.content.findComponent(matcher)
